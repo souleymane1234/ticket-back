@@ -3,28 +3,16 @@ const bcrypt = require('bcryptjs');
 const { isResolvable } = require("@hapi/joi/lib/common");
 
 
-const eventSchema = new mongoose.Schema({
-  compagnie: {
+const userTicketSchema = new mongoose.Schema({
+  usersId: {
     type: String,
     required: true,
   },
-  image: {
-    type: String
-  },
-
-  depart: {
+    eventId: {
     type: String,
+    required: true,
   },
-  arrivee: {
-    type: String,
-  },
-  jour: {
-    type: Date,
-  },
-  prix: {
-    type: Number,
-  },
-created_at: {
+  created_at: {
   type: Date,
   default: Date.now
 },
@@ -36,4 +24,4 @@ updated_at: {
 
 
 
-module.exports = mongoose.model("Event", eventSchema);
+module.exports = mongoose.model("UserTicket", userTicketSchema);

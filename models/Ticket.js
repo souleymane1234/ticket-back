@@ -4,26 +4,14 @@ const { isResolvable } = require("@hapi/joi/lib/common");
 
 
 const ticketSchema = new mongoose.Schema({
-  compagnie: {
+  usersId: {
     type: String,
     required: true,
   },
 
-  depart: {
+  eventId: {
     type: String,
     required: true,
-  },
-  arrivee: {
-    type: String,
-    required: true,
-  },
-  jour: {
-    type: Date,
-    require: true
-  },
-  prix: {
-    type: Number,
-    require: true
   },
 created_at: {
   type: Date,

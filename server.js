@@ -8,10 +8,16 @@ const qrcode = require("qrcode");
 const cors = require('cors')
 
 require('./models/User')
+require('./models/Event')
 require('./models/Ticket')
+require('./models/UserTicket')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// Set EJS as templating engine
+app.set("view engine", "ejs");
 app.use(AuthRoutes)
 app.use(cors());
 
