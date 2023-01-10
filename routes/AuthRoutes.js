@@ -112,12 +112,10 @@ router.post('/api/signin',async (req,res) => {
 
 router.post('/api/createEvent', async(req,res) => {
   console.log('inside post function')
-  const {compagnie,image,depart,arrivee,jour,prix,created_at,updated_at} = req.body;
+  const {nom,image,lieu,date,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
     try{
-    const events = new Event({compagnie,image,depart,arrivee,jour,prix,created_at,updated_at});
+    const events = new Event({nom,image,lieu,date,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at});
     await events.save();
-    const ID = events._id
-    console.log(req.body)
     res.json(events)
   }catch(err){
     res.status(422).send(err.message)
@@ -138,21 +136,6 @@ router.post('/api/userticket', async(req,res) => {
 
 })
 
-router.post('/api/createTicket', async(req,res) => {
-  console.log('inside post function')
-  const {usersId,eventId} = req.body;
-  
-    try{
-    const pass = new Ticket({usersId,eventId});
-    // console.log('pass',res)
-    // console.log('rea',req)
-    await pass.save();
-    res.json(pass)
-  }catch(err){
-    res.status(422).send(err.message)
-  }
-
-})
 
 // get all event 
 router.get('/api/allEvent', (req,res) => {
@@ -165,7 +148,7 @@ router.get('/api/allEvent', (req,res) => {
   })
 })
 // get single event 
-router.get('/api/single/ticket/:id', (req,res) =>{
+router.get('/api/single/event/:id', (req,res) =>{
   Event.findById(req.params.id, (err,data) =>{
     if (!err) {
       res.send(data)

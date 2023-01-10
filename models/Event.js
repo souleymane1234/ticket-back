@@ -4,25 +4,42 @@ const { isResolvable } = require("@hapi/joi/lib/common");
 
 
 const eventSchema = new mongoose.Schema({
-  compagnie: {
+  nom: {
     type: String,
     required: true,
   },
   image: {
-    type: String
+    type: String,
+    required: true
   },
 
-  depart: {
+  lieu: {
     type: String,
+    required: true
   },
-  arrivee: {
-    type: String,
-  },
-  jour: {
+  date: {
     type: Date,
+    required: true
   },
-  prix: {
+  prixStandart: {
     type: Number,
+    required: true
+  },
+  prixVip: {
+    type: Number,
+    required: true
+  },
+  artisteInviter1: {
+    type: String
+  },
+  artisteInviter2: {
+    type: String
+  },
+  artisteInviter3: {
+    type: String
+  },
+  artisteInviter4: {
+    type: String
   },
 created_at: {
   type: Date,
