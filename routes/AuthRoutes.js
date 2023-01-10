@@ -124,14 +124,19 @@ router.post('/api/createEvent', async(req,res) => {
 })
 
 router.post('/api/createTicket', async(req,res) => {
-  const {usersId,eventId,created_at,updated_at} = req.body;
-  try{
-    const CreateTicket = new Ticket({usersId: usersId,eventId: eventId,created_at,updated_at});
-    await CreateTicket.save();
-    res.json(CreateTicket)
-  }catch(err){
-    res.status(422).send(err.message)
-  }
+      var obj = {
+        usersId: req.body.usersId,
+        eventId: req.body.eventId,
+    }
+        Ticket.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            item.save();
+            res.json(obj)
+        }
+    });
 })
 
 
