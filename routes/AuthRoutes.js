@@ -126,7 +126,7 @@ router.post('/api/createEvent', async(req,res) => {
 router.post('/api/createTicket', async(req,res) => {
   const {usersId,eventId,created_at,updated_at} = req.body;
   try{
-    const CreateTicket = new Ticket({usersId,eventId,created_at,updated_at});
+    const CreateTicket = new Ticket({usersId: usersId,eventId: eventId,created_at,updated_at});
     await CreateTicket.save();
     res.json(CreateTicket)
   }catch(err){
