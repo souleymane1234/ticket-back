@@ -123,18 +123,31 @@ router.post('/api/createEvent', async(req,res) => {
 
 })
 
-router.post('/api/userticket', async(req,res) => {
-  console.log('inside post function')
+router.post('/api/createTicket', async(req,res) => {
   const {usersId,eventId,created_at,updated_at} = req.body;
-    try{
-    const tik = new UserTicket({usersId,eventId,created_at,updated_at});
-    await tik.save();
-    res.json(tik)
+  try{
+    const CreateTicket = new Ticket({usersId,eventId,created_at,updated_at});
+    await CreateTicket.save();
+    res.json(CreateTicket)
   }catch(err){
     res.status(422).send(err.message)
   }
-
 })
+
+
+
+// router.post('/api/userticket', async(req,res) => {
+//   console.log('inside post function')
+//   const {usersId,eventId,created_at,updated_at} = req.body;
+//     try{
+//     const tik = new UserTicket({usersId,eventId,created_at,updated_at});
+//     await tik.save();
+//     res.json(tik)
+//   }catch(err){
+//     res.status(422).send(err.message)
+//   }
+
+// })
 
 
 // get all event 
@@ -159,45 +172,6 @@ router.get('/api/single/event/:id', (req,res) =>{
 })
 
 // ...
-
-router.post('/qr/generate', async (req, res) => {
-  try {
-    const { ticketId } = req.body;
-
-    // Validate user input
-    if (!ticketId) {
-      res.status(400).send("User Id is required");
-    }
-
-    const ticket = await Ticket.findById(ticketId);
-
-    // Validate is user exist
-    if (!ticket) {
-      res.status(400).send("User not found");
-    }
-
-    const qrExist = await QRCode.findOne({ ticketId });
-
-    // If qr exist, update disable to true and then create a new qr record
-    if (!qrExist) {
-      await QRCode.create({ ticketId });
-    } else {
-      await QRCode.findOneAndUpdate({ ticketId }, { $set: { disabled: true } });
-      await QRCode.create({ ticketId });
-    }
-
-    // Generate encrypted data
-    const encryptedData = jwt.sign({ ticketId: ticket._id },jwtKey);
-
-    // Generate qr code
-    const dataImage = await QR.toDataURL(encryptedData);
-
-    // Return qr code
-    return res.status(200).json({ dataImage });
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 // ...
 

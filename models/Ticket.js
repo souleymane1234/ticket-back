@@ -8,16 +8,15 @@ const ticketSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   eventId: {
     type: String,
     required: true,
   },
-created_at: {
+  created_at: {
   type: Date,
   default: Date.now
-},
-updated_at: {
+  },
+  updated_at: {
   type: Date,
   default: Date.now
  }
