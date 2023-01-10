@@ -14,7 +14,7 @@ require('./models/UserTicket')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
  
 // Set EJS as templating engine
 app.set("view engine", "ejs");
