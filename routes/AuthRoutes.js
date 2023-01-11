@@ -123,36 +123,46 @@ router.post('/api/createEvent', async(req,res) => {
 
 })
 
-router.post('/api/createTicket', async(req,res) => {
-      var obj = {
-        usersId: req.body.usersId,
-        eventId: req.body.eventId,
-    }
-        Ticket.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            item.save();
-            res.json(obj)
-        }
-    });
-})
-
-
-
-// router.post('/api/userticket', async(req,res) => {
-//   console.log('inside post function')
-//   const {usersId,eventId,created_at,updated_at} = req.body;
-//     try{
-//     const tik = new UserTicket({usersId,eventId,created_at,updated_at});
-//     await tik.save();
-//     res.json(tik)
-//   }catch(err){
-//     res.status(422).send(err.message)
-//   }
-
+// router.post('/api/createTicket', async(req,res) => {
+//       var obj = {
+//         usersId: req.body.usersId,
+//         eventId: req.body.eventId,
+//     }
+//         Ticket.create(obj, (err, item) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             item.save();
+//             res.json(obj)
+//         }
+//     });
 // })
+
+router.post('/api/createTicket', async (req, res) => {
+const newTicket = new Ticket(req.body);
+console.log(newTicket)
+try {
+const tik = await newTicket.save();
+if(!tik) throw Error('Something went wrong with the post')
+res.status(200).json(tik);
+} catch(error) {
+res.status(400).json({msg: error})
+}
+});
+
+//  router.post('/api/createTicket', async(req,res) => {
+   
+//      try{
+//          const {usersId,eventId,created_at,updated_at} = req.body;
+//           const tik = await new Ticket({usersId,eventId,created_at,updated_at}).save();
+//         return res.json({ tik, message: 'Feedback Created' });
+//    }catch (error) {
+//       console.log(error.message);
+//       res.json('Failed to create feedback!');
+//     }
+
+//  })
 
 
 // get all event 
