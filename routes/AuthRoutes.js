@@ -185,6 +185,16 @@ router.get('/api/single/event/:id', (req,res) =>{
     }
   })
 })
+// get all ticket
+router.get('/api/allTicket', (req,res) => {
+  Ticket.find({}, (err,data) =>{
+    if (!err) {
+      res.send(data)
+    }else {
+      console.log(err)
+    }
+  })
+})
 
 // ...
 
