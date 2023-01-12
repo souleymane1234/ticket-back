@@ -120,7 +120,7 @@ router.post('/api/createEvent', async(req,res) => {
   }catch(err){
     res.status(422).send(err.message)
   }
-
+// ok
 })
 
 // router.post('/api/createTicket', async(req,res) => {
