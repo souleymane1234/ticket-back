@@ -112,9 +112,9 @@ router.post('/api/signin',async (req,res) => {
 
 router.post('/api/createEvent', async(req,res) => {
   console.log('inside post function')
-  const {nom,image,lieu,date,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
+  const {nom,image,lieu,date,heure,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
     try{
-    const events = new Event({nom,image,lieu,date,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at});
+    const events = new Event({nom,image,lieu,date,heure,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at});
     await events.save();
     res.json(events)
   }catch(err){
