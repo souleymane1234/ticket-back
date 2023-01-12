@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const { isResolvable } = require("@hapi/joi/lib/common");
 const userSchema = new mongoose.Schema({
+  nom: {
+    type: String,
+    required: true,
+  },
+  prenom: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     unique: true,
@@ -13,9 +21,17 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   number: {
-    type: Number,
+    type: String,
     require: true
   },
+  created_at: {
+  type: Date,
+  default: Date.now
+  },
+  updated_at: {
+  type: Date,
+  default: Date.now
+ }
 });
 
 userSchema.pre('save',function(next){

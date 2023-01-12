@@ -16,12 +16,12 @@ const path = require('path');
 
 router.post('/api/signup', async (req,res) => {
 
-  const {email,password,number} = req.body;
+  const {nom,prenom,email,password,number,created_at,updated_at} = req.body;
   try{
-    const user = new User({email,password,number});
+    const user = new User({nom,prenom,email,password,number,created_at,updated_at});
     await user.save();
     const token = jwt.sign({userId:user._id},jwtKey)
-    res.send({token})
+    res.send({user,token})
   }catch(err){
     res.status(422).send(err.message)
   }

@@ -22,11 +22,11 @@ const eventSchema = new mongoose.Schema({
     required: true
   },
   prixStandart: {
-    type: Number,
+    type: String,
     required: true
   },
   prixVip: {
-    type: Number,
+    type: String,
     required: true
   },
   artisteInviter1: {
