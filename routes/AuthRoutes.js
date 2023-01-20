@@ -7,6 +7,7 @@ const User = mongoose.model('User');
 const Event = mongoose.model('Event')
 const Ticket = mongoose.model('Ticket')
 const UserTicket = mongoose.model('UserTicket')
+const OnePage = mongoose.model('OnePage')
 const moment = require('moment')
 const qrcode = require("qrcode");
 const e = require('express');
@@ -194,6 +195,19 @@ router.get('/api/allTicket', (req,res) => {
       console.log(err)
     }
   })
+})
+
+router.post('/api/onepage', async (req,res) => {
+
+  const {nom,email,imageCouverture,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,presentation3Image,presentation3Titre,presentation3Description,created_at,updated_at} = req.body;
+  try{
+    const one = new OnePage({nom,email,imageCouverture,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,presentation3Image,presentation3Titre,presentation3Description,created_at,updated_at});
+    await one.save();
+    console.log(one)
+    res.send({one})
+  }catch(err){
+    res.status(422).send(err.message)
+  }
 })
 
 // ...
