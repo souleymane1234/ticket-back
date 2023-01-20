@@ -14,6 +14,8 @@ const e = require('express');
 const multer = require('multer')
 const fs = require('fs')
 const path = require('path');
+const Cors = require('cors');
+const initMiddleware = require('../lib/init-middleware');
 
 router.post('/api/signup', async (req,res) => {
 
@@ -208,6 +210,19 @@ router.post('/api/onepage', async (req,res) => {
   }catch(err){
     res.status(422).send(err.message)
   }
+})
+
+
+// Initialize the cors middleware
+const cors = initMiddleware(
+    // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+    Cors({
+        // Only allow requests with GET, POST and OPTIONS
+        methods: ['OPTIONS'],
+    })
+);
+router.get('/test', (req,res) =>{
+  res.send('hello')
 })
 
 // ...
