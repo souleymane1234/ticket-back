@@ -221,7 +221,8 @@ const cors = initMiddleware(
         methods: ['OPTIONS'],
     })
 );
-router.get('/test', (req,res) =>{
+router.get('/test', async(req,res) =>{
+  await cors
   res.send('hello')
 })
 
