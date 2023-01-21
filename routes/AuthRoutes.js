@@ -213,18 +213,6 @@ router.post('/api/onepage', async (req,res) => {
 })
 
 
-// Initialize the cors middleware
-const cors = initMiddleware(
-    // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
-    Cors({
-        // Only allow requests with GET, POST and OPTIONS
-        methods: ['OPTIONS'],
-    })
-);
-router.get('/test', async(req,res) =>{
-  await cors
-  res.send('hello')
-})
 
 // ...
 
