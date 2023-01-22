@@ -15,7 +15,10 @@ require('./models/UserTicket')
 require('./models/onePage')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://souleymane1234.github.io/onePage"
+}));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
  
