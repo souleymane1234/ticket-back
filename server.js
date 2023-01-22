@@ -15,13 +15,13 @@ require('./models/UserTicket')
 require('./models/onePage')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
+app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
  
 // Set EJS as templating engine
 app.set("view engine", "ejs");
 app.use(AuthRoutes)
-app.use(cors());
 
 const uri = "mongodb+srv://TicketAgenceImage:Tm8cTxvt1E3CHScS@cluster0.ihbx5zc.mongodb.net/?retryWrites=true&w=majority";
 
