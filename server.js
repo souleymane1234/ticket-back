@@ -5,7 +5,8 @@ const bodyParser = require('body-parser')
 const PORT = 3000;
 const {mogoUrl} = require('./keys');
 const qrcode = require("qrcode");
-const cors = require('cors')
+const cors = require('cors');
+const fs = require('fs');
 
 require('./models/User')
 require('./models/Event')
@@ -41,6 +42,23 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     console.log('this id error', err)
 })
+
+// CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
+app.all('*', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://souleymane1234.github.io");
+    next();
+});
+
+// HTTPS server
+const credentials = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.crt')
+};
+
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
+    console.log(`Back-end running on port ${port}`);
+});
 
 app.post('/', (req,res) => {
     console.log(req.body)
