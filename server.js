@@ -45,7 +45,7 @@ mongoose.connection.on('error', (err) => {
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://souleymane1234.github.io");
+    res.header("Access-Control-Allow-Origin", "https://souleymane1234.github.io/onePage");
     next();
 });
 
