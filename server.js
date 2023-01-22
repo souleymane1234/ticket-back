@@ -49,16 +49,6 @@ app.all('*', (req, res, next) => {
     next();
 });
 
-// HTTPS server
-const credentials = {
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.crt')
-};
-
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(port, () => {
-    console.log(`Back-end running on port ${port}`);
-});
 
 app.post('/', (req,res) => {
     console.log(req.body)
