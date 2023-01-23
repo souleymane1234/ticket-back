@@ -212,6 +212,16 @@ router.post('/api/onepage', async (req,res) => {
   }
 })
 
+router.get('/api/singleUsers/:id', (req,res) =>{
+  OnePage.findById(req.params.id, (err,data) =>{
+    if (!err) {
+      res.send(data)
+    } else {
+      console.log(err)
+    }
+  })
+})
+
 
 
 // ...

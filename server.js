@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const PORT = 3000;
+const PORT = 5000;
 const {mogoUrl} = require('./keys');
 const qrcode = require("qrcode");
 const cors = require('cors');
@@ -17,7 +17,7 @@ const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 app.use(
   cors({
-    origin: "https://souleymane1234.github.io/onePage"
+    origin: "http://localhost:3000"
 }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -47,10 +47,10 @@ mongoose.connection.on('error', (err) => {
 })
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-app.all('*', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});
+// app.all('*', (req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     next();
+// });
 
 
 app.post('/', (req,res) => {
