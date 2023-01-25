@@ -201,9 +201,9 @@ router.get('/api/allTicket', (req,res) => {
 
 router.post('/api/onepage', async (req,res) => {
 
-  const {nom,email,imageCouverture,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,presentation3Image,presentation3Titre,presentation3Description,created_at,updated_at} = req.body;
+  const {nom,email,logo,imageCouverture1,imageCouverture2,imageCouverture3,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,created_at,updated_at} = req.body;
   try{
-    const one = new OnePage({nom,email,imageCouverture,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,presentation3Image,presentation3Titre,presentation3Description,created_at,updated_at});
+    const one = new OnePage({nom,email,logo,imageCouverture1,imageCouverture2,imageCouverture3,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,created_at,updated_at});
     await one.save();
     console.log(one)
     res.send({one})

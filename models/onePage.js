@@ -8,7 +8,16 @@ const onePageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imageCouverture: {
+  logo: {
+    type: String
+  },
+  imageCouverture1: {
+    type: String
+  },
+  imageCouverture2: {
+    type: String
+  },
+  imageCouverture3: {
     type: String
   },
   textBienvenue: {
@@ -30,15 +39,6 @@ const onePageSchema = new mongoose.Schema({
     type: String
   },
   presentation2Description: {
-    type: String
-  },
-  presentation3Image: {
-    type: String
-  },
-  presentation3Titre: {
-    type: String
-  },
-  presentation3Description: {
     type: String
   },
   created_at: {
