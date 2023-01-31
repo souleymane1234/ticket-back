@@ -212,8 +212,10 @@ router.post('/api/onepage', async (req,res) => {
   }
 })
 
-router.get('/api/singleUsers/:id', (req,res) =>{
-  OnePage.findById(req.params.id, (err,data) =>{
+router.get('/api/singleUsers/:nom', (req,res) =>{
+  OnePage.findOne({nom: req.params.nom}, (err,data) =>{
+    console.log("first", req.params.nom);
+    console.log(data)
     if (!err) {
       res.send(data)
     } else {
@@ -221,6 +223,22 @@ router.get('/api/singleUsers/:id', (req,res) =>{
     }
   })
 })
+
+// router.get('/api/singleUsers/:nom', (req,res) =>{
+  // OnePage.findOne(req.params.nom,function (err, course) 
+  
+  // {
+  //   console.log(nom)
+  //   res.json(course);
+  // }); 
+  // OnePage.find({username: /nom/i} (err,data) =>{
+  //   if (!err) {
+  //     res.send(data)
+  //   } else {
+  //     console.log(err)
+  //   }
+  // })
+// })
 
 
 
