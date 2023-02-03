@@ -11,11 +11,80 @@ const OnePage = mongoose.model('OnePage')
 const moment = require('moment')
 const qrcode = require("qrcode");
 const e = require('express');
-const multer = require('multer')
-const fs = require('fs')
+const fs = require('fs');
+const uuidv4 = require('uuid/v4');
 const path = require('path');
 const Cors = require('cors');
 const initMiddleware = require('../lib/init-middleware');
+const multer  = require('multer');
+const onePage = require('../models/onePage');
+// const upload = multer({ dest: 'uploads/' })
+
+// storage
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(' ').join('-');
+    req.body.file = fileName
+    cb(null, uuidv4() + '-' + fileName)
+  }
+});
+const upload = multer({
+    storage: fileStorageEngine,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+router.post('/api/upload', upload.array('logo', 9), (req, res, next) => {
+  const {nom,email,textBienvenue,lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche,tel,fixe,lieu,lienFb,lienMenu,lienInfo} = req.body;
+  // const email = req.body.email;
+  // const textBienvenue = req.body.textBienvenue;
+  // const lundi = req.body.lundi;
+  // const mardi = req.body.mardi;
+  // const mercredi = req.body.mercredi;
+  // const jeudi = req.body.jeudi;
+  // const vendredi = req.body.vendredi;
+  // const samedi = req.body.samedi;
+  // const dimanche = req.body.dimanche;
+  // const tel = req.body.tel;
+  // const fixe = req.body.fixe;
+  // const lieu = req.body.lieu;
+  // const lienFb = req.body.lienFb;
+  // const lienMenu = req.body.lienMenu;
+  // const lienInfo = req.body.lienInfo;
+  console.log("frst..........", req.body)
+    const reqFiles = [];
+    const url = req.protocol + '://' + req.get('host')
+    for (var i = 0; i < req.files.length; i++) {
+        reqFiles.push(url + '/uploads/' + req.files[i].filename)
+        console.log("first......", req.files)
+    }
+    const pa = new OnePage({
+        nom,email,textBienvenue,lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche,tel,fixe,lieu,lienFb,lienMenu,lienInfo,
+        logo: reqFiles
+    });
+    pa.save().then(result => {
+        res.status(201).json({
+            message: "Done upload!",
+            userCreated: { 
+                logo: result.logo
+            }
+        })
+    }).catch(err => {
+        console.log(err),
+            res.status(500).json({
+                error: err
+            });
+    })
+})
 
 router.post('/api/signup', async (req,res) => {
 
@@ -123,7 +192,6 @@ router.post('/api/createEvent', async(req,res) => {
   }catch(err){
     res.status(422).send(err.message)
   }
-// ok
 })
 
 // router.post('/api/createTicket', async(req,res) => {
@@ -199,23 +267,32 @@ router.get('/api/allTicket', (req,res) => {
   })
 })
 
-router.post('/api/onepage', async (req,res) => {
+// router.post('/api/onepage', upload.single('logo'), async (req,res) => {
 
-  const {nom,email,logo,imageCouverture1,imageCouverture2,imageCouverture3,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,created_at,updated_at} = req.body;
-  try{
-    const one = new OnePage({nom,email,logo,imageCouverture1,imageCouverture2,imageCouverture3,textBienvenue,presentation1Image,presentation1Titre,presentation1Description,presentation2Image,presentation2Titre,presentation2Description,created_at,updated_at});
-    await one.save();
-    console.log(one)
-    res.send({one})
-  }catch(err){
-    res.status(422).send(err.message)
-  }
-})
+//   const {nom,email,textBienvenue,presentation1Titre,presentation1Description,presentation2Titre,presentation2Description,created_at,updated_at} = req.body;
+//   const logo = req.file
+//   console.log("ok......", logo)
+//   try{
+//     const one = new OnePage({nom,email,logo,textBienvenue,presentation1Titre,presentation1Description,presentation2Titre,presentation2Description,created_at,updated_at});
+//     await one.save();
+//     console.log(one)
+//     res.send({one})
+//   }catch(err){
+//     res.status(422).send(err.message)
+//   }
+// })
+// router.get("/api/singleUsers/:nom", (req, res, next) => {
+//     OnePage.findOne().then(data => {
+//         res.status(200).json({
+//             message: "User list retrieved successfully!",
+//             users: data
+//         });
+//     });
+// });
 
-router.get('/api/singleUsers/:nom', (req,res) =>{
+router.get('/api/singleUsers/:nom', (req,res,next) =>{
   OnePage.findOne({nom: req.params.nom}, (err,data) =>{
     console.log("first", req.params.nom);
-    console.log(data)
     if (!err) {
       res.send(data)
     } else {

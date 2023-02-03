@@ -2,53 +2,82 @@ const mongoose = require("mongoose");
 const onePageSchema = new mongoose.Schema({
   nom: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
-    required: true,
   },
   logo: {
-    type: String
-  },
-  imageCouverture1: {
-    type: String
-  },
-  imageCouverture2: {
-    type: String
-  },
-  imageCouverture3: {
-    type: String
+    type: Array,
   },
   textBienvenue: {
-    type: String
+    type: String,
   },
-  presentation1Image: {
-    type: String
+  lundi: {
+    type: String,
   },
-  presentation1Titre: {
-    type: String
+  mardi: {
+    type: String,
   },
-  presentation1Description: {
-    type: String
+  mercredi: {
+    type: String,
   },
-  presentation2Image: {
-    type: String
+  jeudi: {
+    type: String,
   },
-  presentation2Titre: {
-    type: String
+  vendredi: {
+    type: String,
   },
-  presentation2Description: {
-    type: String
+  samedi: {
+    type: String,
   },
-  created_at: {
-  type: Date,
-  default: Date.now
+  dimanche: {
+    type: String,
   },
-  updated_at: {
-  type: Date,
-  default: Date.now
- }
+  tel: {
+    type: String,
+  },
+  fixe: {
+    type: String,
+  },
+  lieu: {
+    type: String,
+  },
+  lienFb: {
+    type: String,
+  },
+  lienInst: {
+    type: String,
+  },
+  lienMenu: {
+    type: String,
+  },
+  lienInfo: {
+    type: String,
+  },
+  // slide1: {
+  //   type: String,
+  // },
+  // slide2: {
+  //   type: String,
+  // },
+  // slide3: {
+  //   type: String,
+  // },
+  // menu1: {
+  //   type: String,
+  // },
+  // menu2: {
+  //   type: String,
+  // },
+  // menu3: {
+  //   type: String,
+  // },
+  // menu4: {
+  //   type: String,
+  // },
+  // resto: {
+  //   type: String,
+  // },
 });
 
 // userSchema.pre('save',function(next){
