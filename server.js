@@ -17,7 +17,7 @@ const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 app.use(
   cors({
-    origin: "*"
+    origin: "https://pleasant-shirt-bass.cyclic.app/"
 }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
