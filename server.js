@@ -15,10 +15,16 @@ require('./models/UserTicket')
 require('./models/onePage')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
-app.use(
-  cors({
-    origin: "http://localhost:3000"
-}));
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000"
+// }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
  
