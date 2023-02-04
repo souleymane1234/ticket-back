@@ -23,7 +23,7 @@ const onePage = require('../models/onePage');
 // storage
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/')
+    cb(null, 'tmp/uploads/')
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
@@ -64,7 +64,7 @@ router.post('/api/upload', upload.array('logo', 9), (req, res, next) => {
     const reqFiles = [];
     const url = req.protocol + '://' + req.get('host')
     for (var i = 0; i < req.files.length; i++) {
-        reqFiles.push(url + '/uploads/' + req.files[i].filename)
+        reqFiles.push(url + '/tmp/uploads/' + req.files[i].filename)
         console.log("first......", req.files)
     }
     const pa = new OnePage({
