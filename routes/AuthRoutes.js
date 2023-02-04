@@ -23,7 +23,7 @@ const onePage = require('../models/onePage');
 // storage
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads')
+    cb(null, 'uploads/')
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
