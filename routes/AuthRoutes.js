@@ -8,6 +8,8 @@ const Event = mongoose.model('Event')
 const Ticket = mongoose.model('Ticket')
 const UserTicket = mongoose.model('UserTicket')
 const OnePage = mongoose.model('OnePage')
+const Transport = mongoose.model('Transport')
+const CompagnieTransport = mongoose.model('CompagnieTransport')
 const moment = require('moment')
 const qrcode = require("qrcode");
 const e = require('express');
@@ -181,7 +183,7 @@ router.post('/api/signin',async (req,res) => {
 //     console.log(err, "error has")
 //   })
 // })
-
+// creer un evenement 
 router.post('/api/createEvent', async(req,res) => {
   console.log('inside post function')
   const {nom,image,lieu,date,heure,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
@@ -189,6 +191,19 @@ router.post('/api/createEvent', async(req,res) => {
     const events = new Event({nom,image,lieu,date,heure,prixStandart,prixVip,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at});
     await events.save();
     res.json(events)
+  }catch(err){
+    res.status(422).send(err.message)
+  }
+})
+
+// creer une compagnie 
+router.post('/api/compagnie', async(req,res) => {
+  console.log('inside post function')
+  const {nom,image,created_at,updated_at} = req.body;
+    try{
+    const compa = new CompagnieTransport({nom,image,created_at,updated_at});
+    await compa.save();
+    res.json(compa)
   }catch(err){
     res.status(422).send(err.message)
   }
@@ -209,7 +224,7 @@ router.post('/api/createEvent', async(req,res) => {
 //         }
 //     });
 // })
-
+// API pour creer un ticket 
 router.post('/api/createTicket', async (req, res) => {
 const newTicket = new Ticket(req.body);
 console.log(newTicket)
@@ -259,6 +274,17 @@ router.get('/api/single/event/:id', (req,res) =>{
 // get all ticket
 router.get('/api/allTicket', (req,res) => {
   Ticket.find({}, (err,data) =>{
+    if (!err) {
+      res.send(data)
+    }else {
+      console.log(err)
+    }
+  })
+})
+
+// get all compagnie 
+router.get('/api/allEvent', (req,res) => {
+  CompagnieTransport.find({}, (err,data) =>{
     if (!err) {
       res.send(data)
     }else {

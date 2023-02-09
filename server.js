@@ -13,6 +13,8 @@ require('./models/Event')
 require('./models/Ticket')
 require('./models/UserTicket')
 require('./models/onePage')
+require('./models/Transport')
+require('./models/CompagnieTransport')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 const corsOptions ={
