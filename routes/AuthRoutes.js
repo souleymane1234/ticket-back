@@ -283,7 +283,7 @@ router.get('/api/allTicket', (req,res) => {
 })
 
 // get all compagnie 
-router.get('/api/allEvent', (req,res) => {
+router.get('/api/allCompagnie', (req,res) => {
   CompagnieTransport.find({}, (err,data) =>{
     if (!err) {
       res.send(data)
