@@ -292,6 +292,16 @@ router.get('/api/allCompagnie', (req,res) => {
     }
   })
 })
+// get single compagnie
+router.get('/api/single/compagnie/:id', (req,res) =>{
+  CompagnieTransport.findById(req.params.id, (err,data) =>{
+    if (!err) {
+      res.send(data)
+    } else {
+      console.log(err)
+    }
+  })
+})
 
 // router.post('/api/onepage', upload.single('logo'), async (req,res) => {
 
