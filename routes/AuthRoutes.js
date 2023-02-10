@@ -8,8 +8,8 @@ const Event = mongoose.model('Event')
 const Ticket = mongoose.model('Ticket')
 const UserTicket = mongoose.model('UserTicket')
 const OnePage = mongoose.model('OnePage')
-const Transport = mongoose.model('Transport')
 const CompagnieTransport = mongoose.model('CompagnieTransport')
+const TicketTransport = mongoose.model('TicketTransport')
 const moment = require('moment')
 const qrcode = require("qrcode");
 const e = require('express');
@@ -209,24 +209,22 @@ router.post('/api/compagnie', async(req,res) => {
   }
 })
 
-// router.post('/api/createTicket', async(req,res) => {
-//       var obj = {
-//         usersId: req.body.usersId,
-//         eventId: req.body.eventId,
-//     }
-//         Ticket.create(obj, (err, item) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             item.save();
-//             res.json(obj)
-//         }
-//     });
-// })
 // API pour creer un ticket 
 router.post('/api/createTicket', async (req, res) => {
 const newTicket = new Ticket(req.body);
+console.log(newTicket)
+try {
+const tik = await newTicket.save();
+if(!tik) throw Error('Something went wrong with the post')
+res.status(200).json(tik);
+} catch(error) {
+res.status(400).json({msg: error})
+}
+});
+
+// API pour creer un ticket de transport
+router.post('/api/createTicketTransport', async (req, res) => {
+const newTicket = new TicketTransport(req.body);
 console.log(newTicket)
 try {
 const tik = await newTicket.save();
@@ -298,6 +296,17 @@ router.get('/api/single/compagnie/:id', (req,res) =>{
     if (!err) {
       res.send(data)
     } else {
+      console.log(err)
+    }
+  })
+})
+
+// get all ticket Transport
+router.get('/api/allTicketTransport', (req,res) => {
+  TicketTransport.find({}, (err,data) =>{
+    if (!err) {
+      res.send(data)
+    }else {
       console.log(err)
     }
   })
