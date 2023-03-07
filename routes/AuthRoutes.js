@@ -25,7 +25,7 @@ const onePage = require('../models/onePage');
 // storage
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'tmp/uploads/')
+    cb(null, 'uploads/')
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
@@ -47,26 +47,11 @@ const upload = multer({
 
 router.post('/api/upload', upload.array('logo', 9), (req, res, next) => {
   const {nom,email,textBienvenue,lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche,tel,fixe,lieu,lienFb,lienMenu,lienInfo} = req.body;
-  // const email = req.body.email;
-  // const textBienvenue = req.body.textBienvenue;
-  // const lundi = req.body.lundi;
-  // const mardi = req.body.mardi;
-  // const mercredi = req.body.mercredi;
-  // const jeudi = req.body.jeudi;
-  // const vendredi = req.body.vendredi;
-  // const samedi = req.body.samedi;
-  // const dimanche = req.body.dimanche;
-  // const tel = req.body.tel;
-  // const fixe = req.body.fixe;
-  // const lieu = req.body.lieu;
-  // const lienFb = req.body.lienFb;
-  // const lienMenu = req.body.lienMenu;
-  // const lienInfo = req.body.lienInfo;
   console.log("frst..........", req.body)
     const reqFiles = [];
     const url = req.protocol + '://' + req.get('host')
     for (var i = 0; i < req.files.length; i++) {
-        reqFiles.push(url + '/tmp/uploads/' + req.files[i].filename)
+        reqFiles.push(url + '/uploads/' + req.files[i].filename)
         console.log("first......", req.files)
     }
     const pa = new OnePage({
@@ -79,6 +64,28 @@ router.post('/api/upload', upload.array('logo', 9), (req, res, next) => {
             userCreated: { 
                 logo: result.logo
             }
+        })
+    }).catch(err => {
+        console.log(err),
+            res.status(500).json({
+                error: err
+            });
+    })
+})
+
+router.post('/api/ajoutEvent', upload.single('image'), (req, res, next) => {
+  const {nom,description,date,heure,prixStandart,prixVip,nomLieu,descriptionLieu,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
+  console.log("frst..........", req.body)
+    const url = req.protocol + '://' + req.get('host')
+    const NewEvent = new Event({
+        nom,description,date,heure,prixStandart,prixVip,nomLieu,descriptionLieu,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at,
+        image: url + '/public/' + req.file.filename
+    });
+    const urll = url + '/public/' + req.file.filename
+     console.log("url..........", urll)
+    NewEvent.save().then(result => {
+        res.status(201).json({
+            message: "Done upload!"
         })
     }).catch(err => {
         console.log(err),

@@ -9,11 +9,10 @@ const eventSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
-    required: true
+    type: String
   },
 
-  lieu: {
+  description: {
     type: String,
     required: true
   },
@@ -30,6 +29,14 @@ const eventSchema = new mongoose.Schema({
     required: true
   },
   prixVip: {
+    type: String,
+    required: true
+  },
+  nomLieu: {
+    type: String,
+    required: true
+  },
+  descriptionLieu: {
     type: String,
     required: true
   },
