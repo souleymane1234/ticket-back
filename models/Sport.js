@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { isResolvable } = require("@hapi/joi/lib/common");
 
 
-const eventSchema = new mongoose.Schema({
+const sportSchema = new mongoose.Schema({
   nom: {
     type: String,
     required: true,
@@ -33,6 +33,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  prixVvip: {
+    type: String,
+    required: true
+  },
   nomLieu: {
     type: String,
     required: true
@@ -40,18 +44,6 @@ const eventSchema = new mongoose.Schema({
   descriptionLieu: {
     type: String,
     required: true
-  },
-  artisteInviter1: {
-    type: String
-  },
-  artisteInviter2: {
-    type: String
-  },
-  artisteInviter3: {
-    type: String
-  },
-  artisteInviter4: {
-    type: String
   },
 created_at: {
   type: Date,
@@ -65,4 +57,4 @@ updated_at: {
 
 
 
-module.exports = mongoose.model("Event", eventSchema);
+module.exports = mongoose.model("Sport", sportSchema);

@@ -1,0 +1,240 @@
+// const moment = require('moment')
+// const qrcode = require("qrcode");
+// const e = require('express');
+// const fs = require('fs');
+// const uuidv4 = require('uuid/v4');
+// const path = require('path');
+// const Cors = require('cors');
+// const initMiddleware = require('../lib/init-middleware');
+// const multer  = require('multer');
+// storage
+// const fileStorageEngine = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'uploads/')
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = file.originalname.toLowerCase().split(' ').join('-');
+//     req.body.file = fileName
+//     cb(null, uuidv4() + '-' + fileName)
+//   }
+// });
+// const upload = multer({
+//     storage: fileStorageEngine,
+//     fileFilter: (req, file, cb) => {
+//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//             cb(null, true);
+//         } else {
+//             cb(null, false);
+//             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+//         }
+//     }
+// });
+
+// router.post('/api/upload', upload.array('logo', 9), (req, res, next) => {
+//   const {nom,email,textBienvenue,lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche,tel,fixe,lieu,lienFb,lienMenu,lienInfo} = req.body;
+//   console.log("frst..........", req.body)
+//     const reqFiles = [];
+//     const url = req.protocol + '://' + req.get('host')
+//     for (var i = 0; i < req.files.length; i++) {
+//         reqFiles.push(url + '/uploads/' + req.files[i].filename)
+//         console.log("first......", req.files)
+//     }
+//     const pa = new OnePage({
+//         nom,email,textBienvenue,lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche,tel,fixe,lieu,lienFb,lienMenu,lienInfo,
+//         logo: reqFiles
+//     });
+//     pa.save().then(result => {
+//         res.status(201).json({
+//             message: "Done upload!",
+//             userCreated: { 
+//                 logo: result.logo
+//             }
+//         })
+//     }).catch(err => {
+//         console.log(err),
+//             res.status(500).json({
+//                 error: err
+//             });
+//     })
+// })
+
+// router.post('/api/ajoutEvent', upload.single('image'), (req, res, next) => {
+//   const {nom,description,date,heure,prixStandart,prixVip,nomLieu,descriptionLieu,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at} = req.body;
+//   console.log("frst..........", req.body)
+//     const url = req.protocol + '://' + req.get('host')
+//     const NewEvent = new Event({
+//         nom,description,date,heure,prixStandart,prixVip,nomLieu,descriptionLieu,artisteInviter1,artisteInviter2,artisteInviter3,artisteInviter4,created_at,updated_at,
+//         image: url + '/public/' + req.file.filename
+//     });
+//     const urll = url + '/public/' + req.file.filename
+//      console.log("url..........", urll)
+//     NewEvent.save().then(result => {
+//         res.status(201).json({
+//             message: "Done upload!"
+//         })
+//     }).catch(err => {
+//         console.log(err),
+//             res.status(500).json({
+//                 error: err
+//             });
+//     })
+// })
+
+
+
+
+ 
+// const storage = multer.diskStorage({
+// creer une compagnie 
+// router.post('/api/compagnie', async(req,res) => {
+//   console.log('inside post function')
+//   const {nom,image,created_at,updated_at} = req.body;
+//     try{
+//     const compa = new CompagnieTransport({nom,image,created_at,updated_at});
+//     await compa.save();
+//     res.json(compa)
+//   }catch(err){
+//     res.status(422).send(err.message)
+//   }
+// })
+
+// API pour creer un ticket 
+// router.post('/api/createTicket', async (req, res) => {
+// const newTicket = new Ticket(req.body);
+// console.log(newTicket)
+// try {
+// const tik = await newTicket.save();
+// if(!tik) throw Error('Something went wrong with the post')
+// res.status(200).json(tik);
+// } catch(error) {
+// res.status(400).json({msg: error})
+// }
+// });
+
+// API pour creer un ticket de transport
+// router.post('/api/createTicketTransport', async (req, res) => {
+// const newTicket = new TicketTransport(req.body);
+// console.log(newTicket)
+// try {
+// const tik = await newTicket.save();
+// if(!tik) throw Error('Something went wrong with the post')
+// res.status(200).json(tik);
+// } catch(error) {
+// res.status(400).json({msg: error})
+// }
+// });
+
+//  router.post('/api/createTicket', async(req,res) => {
+   
+//      try{
+//          const {usersId,eventId,created_at,updated_at} = req.body;
+//           const tik = await new Ticket({usersId,eventId,created_at,updated_at}).save();
+//         return res.json({ tik, message: 'Feedback Created' });
+//    }catch (error) {
+//       console.log(error.message);
+//       res.json('Failed to create feedback!');
+//     }
+
+//  })
+
+
+// get single event 
+
+// get all ticket
+// router.get('/api/allTicket', (req,res) => {
+//   Ticket.find({}, (err,data) =>{
+//     if (!err) {
+//       res.send(data)
+//     }else {
+//       console.log(err)
+//     }
+//   })
+// })
+
+// get all compagnie 
+// router.get('/api/allCompagnie', (req,res) => {
+//   CompagnieTransport.find({}, (err,data) =>{
+//     if (!err) {
+//       res.send(data)
+//     }else {
+//       console.log(err)
+//     }
+//   })
+// })
+// get single compagnie
+// router.get('/api/single/compagnie/:id', (req,res) =>{
+//   CompagnieTransport.findById(req.params.id, (err,data) =>{
+//     if (!err) {
+//       res.send(data)
+//     } else {
+//       console.log(err)
+//     }
+//   })
+// })
+
+// get all ticket Transport
+// router.get('/api/allTicketTransport', (req,res) => {
+//   TicketTransport.find({}, (err,data) =>{
+//     if (!err) {
+//       res.send(data)
+//     }else {
+//       console.log(err)
+//     }
+//   })
+// })
+
+// router.post('/api/onepage', upload.single('logo'), async (req,res) => {
+
+//   const {nom,email,textBienvenue,presentation1Titre,presentation1Description,presentation2Titre,presentation2Description,created_at,updated_at} = req.body;
+//   const logo = req.file
+//   console.log("ok......", logo)
+//   try{
+//     const one = new OnePage({nom,email,logo,textBienvenue,presentation1Titre,presentation1Description,presentation2Titre,presentation2Description,created_at,updated_at});
+//     await one.save();
+//     console.log(one)
+//     res.send({one})
+//   }catch(err){
+//     res.status(422).send(err.message)
+//   }
+// })
+// router.get("/api/singleUsers/:nom", (req, res, next) => {
+//     OnePage.findOne().then(data => {
+//         res.status(200).json({
+//             message: "User list retrieved successfully!",
+//             users: data
+//         });
+//     });
+// });
+
+// router.get('/api/singleUsers/:nom', (req,res,next) =>{
+//   OnePage.findOne({nom: req.params.nom}, (err,data) =>{
+//     console.log("first", req.params.nom);
+//     if (!err) {
+//       res.send(data)
+//     } else {
+//       console.log(err)
+//     }
+//   })
+// })
+
+// router.get('/api/singleUsers/:nom', (req,res) =>{
+  // OnePage.findOne(req.params.nom,function (err, course) 
+  
+  // {
+  //   console.log(nom)
+  //   res.json(course);
+  // }); 
+  // OnePage.find({username: /nom/i} (err,data) =>{
+  //   if (!err) {
+  //     res.send(data)
+  //   } else {
+  //     console.log(err)
+  //   }
+  // })
+// })
+
+
+
+// ...
+
+// ...

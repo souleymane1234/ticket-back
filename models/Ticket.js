@@ -12,8 +12,7 @@ const ticketSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
-  lieu: {
+  description: {
     type: String,
     required: true
   },
@@ -31,7 +30,28 @@ const ticketSchema = new mongoose.Schema({
   },
   prixVip: {
     type: String,
+  },
+  prixVvip: {
+    type: String,
+  },
+  nomLieu: {
+    type: String,
     required: true
+  },
+  descriptionLieu: {
+    type: String,
+  },
+  artisteInviter1: {
+    type: String
+  },
+  artisteInviter2: {
+    type: String
+  },
+  artisteInviter3: {
+    type: String
+  },
+  artisteInviter4: {
+    type: String
   },
   usersId: {
     type: String,
