@@ -17,6 +17,7 @@ require('./models/CompagnieTransport')
 require('./models/TicketTransport')
 require('./models/Sport')
 require('./models/Cinema')
+require('./models/Img')
 const requireToken = require('./middleware/requireToken')
 const AuthRoutes = require('./routes/AuthRoutes')
 const corsOptions ={

@@ -8,6 +8,51 @@ const Event = mongoose.model('Event')
 const Ticket = mongoose.model('Ticket')
 const Sport = mongoose.model('Sport')
 const Cinema = mongoose.model('Cinema')
+const Img = mongoose.model('Img')
+const multer  = require('multer');
+
+
+// storage
+// const fileStorageEngine = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'uploads/')
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = file.originalname.toLowerCase().split(' ').join('-');
+//     req.body.file = fileName
+//     cb(null, uuidv4() + '-' + fileName)
+//   }
+// });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+const upload = multer({ storage: storage });
+router.post('/uploadd', upload.single('image'), function (req, res, next) {
+  const url = req.protocol + '://' + req.get('host')
+  const NewImage = new Img({
+        image: url + '/public/' + req.file.filename
+    });
+    NewImage.save().then(result => {
+        res.status(201).json({
+            message: "Done upload!"
+        })
+    }).catch(err => {
+        console.log(err),
+            res.status(500).json({
+                error: err
+            });
+    })
+  // req.file contains the uploaded file
+  // req.body contains the text fields
+})
+
 
 // const upload = multer({ dest: 'uploads/' })
 
