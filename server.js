@@ -33,35 +33,35 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const MONGOURL = process.env.MONGO_URL;
 
-mongoose
-  .connect(MONGOURL)
-  .then(() => {
-    console.log("Database connected successful.");
-    app.listen(PORT, () => {
-      console.log(`server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => console.log(error));
+// mongoose
+//   .connect(MONGOURL)
+//   .then(() => {
+//     console.log("Database connected successful.");
+//     app.listen(PORT, () => {
+//       console.log(`server is running on port ${PORT}`);
+//     });
+//   })
+//   .catch((error) => console.log(error));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(AuthRoutes);
 app.use("/uploads", express.static("uploads"));
 
-// const uri =
-//   "mongodb+srv://TicketAgenceImage:Tm8cTxvt1E3CHScS@cluster0.ihbx5zc.mongodb.net/?retryWrites=true&w=majority";
+const uri =
+  "mongodb+srv://TicketAgenceImage:Tm8cTxvt1E3CHScS@mory.51otj.mongodb.net/?retryWrites=true&w=majority&appName=mory";
 
-// mongoose.connect(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-// mongoose.connection.on("connected", () => {
-//   console.log("connected to mongo yeah");
-// });
+mongoose.connection.on("connected", () => {
+  console.log("connected to mongo yeah");
+});
 
-// mongoose.connection.on("error", (err) => {
-//   console.log("this id error", err);
-// });
+mongoose.connection.on("error", (err) => {
+  console.log("this id error", err);
+});
 
 app.post("/", (req, res) => {
   console.log(req.body);
@@ -71,6 +71,6 @@ app.get("/", requireToken, (req, res) => {
   res.send("Your mail is" + req.user.email);
 });
 
-// app.listen(PORT, () => {
-//   console.log("server running" + PORT);
-// });
+app.listen(PORT, () => {
+  console.log("server running" + PORT);
+});
