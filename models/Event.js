@@ -1,10 +1,34 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const { isResolvable } = require("@hapi/joi/lib/common");
 
-
 const eventSchema = new mongoose.Schema({
-  nom: {
+  type: {
+    type: String,
+    required: true,
+  },
+  nombrePiece: {
+    type: String,
+    required: true,
+  },
+
+  prix: {
+    type: String,
+    required: true,
+  },
+  localisation: {
+    type: String,
+    required: true,
+  },
+  latitude: {
+    type: String,
+    required: true,
+  },
+  longitude: {
+    type: String,
+    required: true,
+  },
+  acd: {
     type: String,
     required: true,
   },
@@ -12,57 +36,14 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  description: {
-    type: String,
-    required: true
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
-  date: {
-    type: String,
-    required: true
+  updated_at: {
+    type: Date,
+    default: Date.now,
   },
-  heure: {
-    type: String,
-    required: true
-  },
-  prixStandart: {
-    type: String,
-    required: true
-  },
-  prixVip: {
-    type: String,
-    required: true
-  },
-  nomLieu: {
-    type: String,
-    required: true
-  },
-  descriptionLieu: {
-    type: String,
-    required: true
-  },
-  artisteInviter1: {
-    type: String
-  },
-  artisteInviter2: {
-    type: String
-  },
-  artisteInviter3: {
-    type: String
-  },
-  artisteInviter4: {
-    type: String
-  },
-created_at: {
-  type: Date,
-  default: Date.now
-},
-updated_at: {
-  type: Date,
-  default: Date.now
- }
 });
-
-
 
 module.exports = mongoose.model("Event", eventSchema);
