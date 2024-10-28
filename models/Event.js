@@ -36,6 +36,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  filtre: {
+    type: String,
+    required: true,
+  },
   created_at: {
     type: Date,
     default: Date.now,

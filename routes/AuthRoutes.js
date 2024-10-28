@@ -110,6 +110,7 @@ router.post("/api/createEvent", async (req, res) => {
     longitude,
     acd,
     image,
+    filtre,
     created_at,
     updated_at,
   } = req.body;
@@ -123,6 +124,7 @@ router.post("/api/createEvent", async (req, res) => {
       longitude,
       acd,
       image,
+      filtre,
       created_at,
       updated_at,
     });
