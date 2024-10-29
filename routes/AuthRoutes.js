@@ -103,6 +103,7 @@ router.post("/api/signin", async (req, res) => {
 router.post("/api/createEvent", async (req, res) => {
   const {
     type,
+    createur,
     nombrePiece,
     prix,
     localisation,
@@ -120,6 +121,7 @@ router.post("/api/createEvent", async (req, res) => {
   try {
     const events = new Event({
       type,
+      createur,
       nombrePiece,
       prix,
       localisation,

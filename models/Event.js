@@ -7,6 +7,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createur: {
+    type: String,
+    required: true,
+  },
   nombrePiece: {
     type: String,
     required: true,
