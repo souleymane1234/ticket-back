@@ -22,19 +22,25 @@ const eventSchema = new mongoose.Schema({
   },
   latitude: {
     type: String,
-    required: true,
   },
   longitude: {
     type: String,
-    required: true,
   },
   acd: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
     required: true,
+  },
+  image2: {
+    type: String,
+  },
+  image3: {
+    type: String,
+  },
+  image4: {
+    type: String,
   },
   filtre: {
     type: String,
